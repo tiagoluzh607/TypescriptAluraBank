@@ -1,4 +1,6 @@
-class Negociacoes{
+import { Negociacao } from "./Negociacao";
+
+export class Negociacoes{
     private _negociacoes: Negociacao[] = []; //tipo é um atalho para Array<Negociacao>
 
     adiciona(negociacao: Negociacao): void{

@@ -1,4 +1,9 @@
-class NegociacaoController{
+import { Negociacoes } from "../models/Negociacoes";
+import { NegociacoesView } from "../views/NegociacoesView";
+import { MensagemView } from "../views/MensagemView";
+import { Negociacao } from "../models/Negociacao";
+
+export class NegociacaoController{
     private _inputData: JQuery; // HTMLInputElement é o tipo caso pegar do html puro
     private _inputQuantidade: JQuery;
     private _inputValor: JQuery;
