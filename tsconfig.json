@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "es6", //ou es5 maior compatibilidade
+        "outDir": "app/js",
+        "noEmitOnError": true,  //se tiver um erro no teu arquivo ts nao compila para js
+        "noImplicitAny": true    //Se não passarmos o type da variavel ele da erro
+        //"removeComments": true //remove os comentarios na hora compilacao para js
+    },
+    "include": [
+        "app/ts/**/*"
+    ]
+}
