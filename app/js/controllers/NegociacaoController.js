@@ -31,13 +31,7 @@ System.register(["../models/index", "../views/index"], function (exports_1, cont
                     }
                     const negociacao = new index_1.Negociacao(data, parseInt(this._inputQuantidade.val()), parseFloat(this._inputValor.val()));
                     this._negociacoes.adiciona(negociacao);
-                    this._negociacoes.paraArray().forEach(negociacao => {
-                        console.log(negociacao.data);
-                        console.log(negociacao.quantidade);
-                        console.log(negociacao.valor);
-                    });
                     this._negociacoesView.update(this._negociacoes);
-                    console.log(negociacao);
                     this._mensagemView.update('Negociação adicionada com sucesso');
                 }
                 _ehDiaUtil(data) {
