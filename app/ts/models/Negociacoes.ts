@@ -8,6 +8,6 @@ export class Negociacoes{
     }
 
     paraArray(): Negociacao[]{
-        return [].concat(this._negociacoes); //retornando um novo array para imutabilidade
+        return ([] as Negociacao[]).concat(this._negociacoes); //retornando um novo array para imutabilidade
     }
 }

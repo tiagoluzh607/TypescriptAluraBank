@@ -4,8 +4,9 @@
         "outDir": "app/js",
         "noEmitOnError": true,  //se tiver um erro no teu arquivo ts nao compila para js
         "noImplicitAny": true,    //Se não passarmos o type da variavel ele da erro
-        "module": "system"    // Configura o ts para usar a biblioteca system.js para carregar modulos js
-        //"removeComments": true //remove os comentarios na hora compilacao para js
+        "module": "system",    // Configura o ts para usar a biblioteca system.js para carregar modulos js
+        "removeComments": true, //remove os comentarios na hora compilacao para js
+        "strictNullChecks": true //Não permite que as variaveis recebam undefined ou null no codigo
     },
     "include": [
         "app/ts/**/*"

@@ -17,7 +17,7 @@ System.register(["../models/index", "../views/index"], function (exports_1, cont
                     this._negociacoes = new index_1.Negociacoes();
                     this._negociacoesView = new index_2.NegociacoesView('#negociacoesView');
                     this._mensagemView = new index_2.MensagemView('#mensagemView');
-                    this._inputData = $('#data'); //<HTMLInputElement> é um cast
+                    this._inputData = $('#data');
                     this._inputQuantidade = $('#quantidade');
                     this._inputValor = $('#valor');
                     this._negociacoesView.update(this._negociacoes);
