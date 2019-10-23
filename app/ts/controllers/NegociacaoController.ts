@@ -1,7 +1,7 @@
 import { Negociacoes, Negociacao, NegociacaoParcial } from "../models/index";
 import { NegociacoesView, MensagemView } from "../views/index";
 import { domInject, throttle } from "../helpers/decorator/index";
-import { NegociacaoService } from "../service/index";
+import { NegociacaoService, HandlerFunction } from "../service/index";
 
 export class NegociacaoController{
 
@@ -54,7 +54,7 @@ export class NegociacaoController{
     @throttle()
     importaDados(){
         
-        function isOk(res: Response){
+        const isOk: HandlerFunction = (res: Response) =>{
             if(res.ok){
                 return res;
             }else{
@@ -62,7 +62,7 @@ export class NegociacaoController{
             }
         }
 
-        this._service.obterNegociacoes(isOk)
+        this._service.obterNegociacoes(isOk) // o compilador verifica se a funcao isOk recebe Response e devolve Response
             .then(negociacoes => {
                 negociacoes.forEach(negociacao => 
                     this._negociacoes.adiciona(negociacao));
