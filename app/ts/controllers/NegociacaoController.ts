@@ -1,6 +1,7 @@
 import { Negociacoes, Negociacao, NegociacaoParcial } from "../models/index";
 import { NegociacoesView, MensagemView } from "../views/index";
 import { domInject, throttle } from "../helpers/decorator/index";
+import { NegociacaoService } from "../service/index";
 
 export class NegociacaoController{
 
@@ -15,6 +16,7 @@ export class NegociacaoController{
     private _negociacoes = new Negociacoes();
     private _negociacoesView = new NegociacoesView('#negociacoesView');
     private _mensagemView = new MensagemView('#mensagemView');
+    private _service = new NegociacaoService();
 
     constructor(){
         // this._inputData = $('#data'); //<HTMLInputElement> é um cast
@@ -60,17 +62,14 @@ export class NegociacaoController{
             }
         }
 
-        fetch('http://localhost:8080/dados')
-            .then(res => isOk(res))
-            .then(res => res.json())
-            .then((dados: NegociacaoParcial[]) => {
-                dados
-                    .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
-                    .forEach(negociacao => this._negociacoes.adiciona(negociacao))
+        this._service.obterNegociacoes(isOk)
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => 
+                    this._negociacoes.adiciona(negociacao));
 
-                this._negociacoesView.update(this._negociacoes)
-            })
-            .catch(err => console.log(err.message));
+                this._negociacoesView.update(this._negociacoes);
+            });
+                
     }
 }
 
