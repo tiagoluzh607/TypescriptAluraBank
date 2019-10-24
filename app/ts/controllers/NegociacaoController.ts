@@ -65,9 +65,17 @@ export class NegociacaoController{
         }
 
         this._service.obterNegociacoes(isOk) // o compilador verifica se a funcao isOk recebe Response e devolve Response
-            .then(negociacoes => {
-                negociacoes.forEach(negociacao => 
-                    this._negociacoes.adiciona(negociacao));
+            .then(negociacoesParaImportar => {
+
+                const negociacoesJahImportadas =  this._negociacoes.paraArray();
+
+                //valida para nao importar duplicado
+                negociacoesParaImportar
+                    .filter(negociacaoAImportar => 
+                        !negociacoesJahImportadas.some(jaImportada => negociacaoAImportar.ehIgual(jaImportada))
+                    )
+                    .forEach(negociacao => 
+                        this._negociacoes.adiciona(negociacao));
 
                 this._negociacoesView.update(this._negociacoes);
             });
