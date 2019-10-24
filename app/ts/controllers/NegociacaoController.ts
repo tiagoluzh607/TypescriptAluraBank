@@ -54,31 +54,35 @@ export class NegociacaoController{
     }
 
     @throttle()
-    importaDados(){
+    async importaDados(){
         
-        const isOk: HandlerFunction = (res: Response) =>{
-            if(res.ok){
-                return res;
-            }else{
-                throw new Error(res.statusText);
+        try{
+
+            const isOk: HandlerFunction = (res: Response) =>{
+                if(res.ok){
+                    return res;
+                }else{
+                    throw new Error(res.statusText);
+                }
             }
+
+            const negociacoesParaImportar: Negociacao[] = await this._service.obterNegociacoes(isOk); // o compilador verifica se a funcao isOk recebe Response e devolve Response
+
+            const negociacoesJahImportadas =  this._negociacoes.paraArray();
+
+            //valida para nao importar duplicado
+            negociacoesParaImportar
+                .filter(negociacaoAImportar => 
+                    !negociacoesJahImportadas.some(jaImportada => negociacaoAImportar.ehIgual(jaImportada))
+                )
+                .forEach(negociacao => 
+                    this._negociacoes.adiciona(negociacao));
+
+            this._negociacoesView.update(this._negociacoes);
+        
+        }catch(err){
+            this._mensagemView.update(err.message);
         }
-
-        this._service.obterNegociacoes(isOk) // o compilador verifica se a funcao isOk recebe Response e devolve Response
-            .then(negociacoesParaImportar => {
-
-                const negociacoesJahImportadas =  this._negociacoes.paraArray();
-
-                //valida para nao importar duplicado
-                negociacoesParaImportar
-                    .filter(negociacaoAImportar => 
-                        !negociacoesJahImportadas.some(jaImportada => negociacaoAImportar.ehIgual(jaImportada))
-                    )
-                    .forEach(negociacao => 
-                        this._negociacoes.adiciona(negociacao));
-
-                this._negociacoesView.update(this._negociacoes);
-            });
                 
     }
 }
